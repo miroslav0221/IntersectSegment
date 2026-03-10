@@ -13,11 +13,11 @@ class Segment3D {
     double z;
 
 public:
-    Segment3D(Vector3D& start, Vector3D& end);
+    Segment3D(const Vector3D& start, const Vector3D& end);
 
-    Vector3D& get_start();
+    const Vector3D& get_start() const;
 
-    Vector3D& get_end();
+    const Vector3D& get_end() const;
 
     double get_x() const;
 
