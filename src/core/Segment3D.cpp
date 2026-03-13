@@ -1,4 +1,4 @@
-#include "Segment3D.h"
+#include "сore/Segment3D.h"
 
 Segment3D::Segment3D(const Vector3D &start, const Vector3D &end)
         : start(start), end(end), segment_as_vector(end.get_x() - start.get_x(),

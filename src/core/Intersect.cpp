@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "Intersect.h"
+#include "сore/Intersect.h"
 
 const CoordAccessor COORD_X = {&Vector3D::get_x};
 const CoordAccessor COORD_Y = {&Vector3D::get_y};

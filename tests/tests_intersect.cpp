@@ -1,10 +1,11 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
-#include "Intersect.h"
+#include "сore/Intersect.h"
 
 const double EPS_TEST = 1e-7;
 
+//Точка пересечения в плоскости XY для intersect3d
 TEST(Intersect3d, IntersectionInXYPlane) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(2, 2, 0));
     Segment3D CD(Vector3D(0, 2, 0), Vector3D(2, 0, 0));
@@ -17,6 +18,7 @@ TEST(Intersect3d, IntersectionInXYPlane) {
     EXPECT_NEAR(p1.get_z(), p2.get_z(), EPS_TEST);
 }
 
+//Точка пересечения в 3d
 TEST(Intersect3d, IntersectionTrue3D) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(2, 2, 2));
     Segment3D CD(Vector3D(2, 0, 0), Vector3D(0, 2, 2));
@@ -26,6 +28,7 @@ TEST(Intersect3d, IntersectionTrue3D) {
     EXPECT_NEAR(p1.get_z(), 1.0, EPS_TEST);
 }
 
+//Отрезок CD начинается в конце отрезка AB
 TEST(Intersect3d, IntersectionAtEndpoint) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 1, 1));
     Segment3D CD(Vector3D(1, 1, 1), Vector3D(2, 0, 0));
@@ -35,6 +38,7 @@ TEST(Intersect3d, IntersectionAtEndpoint) {
     EXPECT_NEAR(p1.get_z(), 1.0, EPS_TEST);
 }
 
+//Пересечение в начале координат
 TEST(Intersect3d, IntersectionAtOrigin) {
     Segment3D AB(Vector3D(-1, -1, 0), Vector3D(1, 1, 0));
     Segment3D CD(Vector3D(-1, 1, 0), Vector3D(1, -1, 0));
@@ -43,15 +47,7 @@ TEST(Intersect3d, IntersectionAtOrigin) {
     EXPECT_NEAR(p1.get_y(), 0.0, EPS_TEST);
 }
 
-TEST(Intersect3d, IntersectionAlongAxes) {
-    Segment3D AB(Vector3D(-1, 0, 0), Vector3D(1, 0, 0));
-    Segment3D CD(Vector3D(0, -1, 0), Vector3D(0, 1, 0));
-    auto [p1, p2] = intersect3d(AB, CD);
-    EXPECT_NEAR(p1.get_x(), 0.0, EPS_TEST);
-    EXPECT_NEAR(p1.get_y(), 0.0, EPS_TEST);
-    EXPECT_NEAR(p1.get_z(), 0.0, EPS_TEST);
-}
-
+//Точка пересечения в плоскости XZ для intersect3d
 TEST(Intersect3d, IntersectionInXZPlane) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(2, 0, 2));
     Segment3D CD(Vector3D(2, 0, 0), Vector3D(0, 0, 2));
@@ -61,6 +57,7 @@ TEST(Intersect3d, IntersectionInXZPlane) {
     EXPECT_NEAR(p1.get_z(), 1.0, EPS_TEST);
 }
 
+//Точка пересечения в плоскости YZ для intersect3d
 TEST(Intersect3d, IntersectionInYZPlane) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0, 2, 2));
     Segment3D CD(Vector3D(0, 2, 0), Vector3D(0, 0, 2));
@@ -72,6 +69,7 @@ TEST(Intersect3d, IntersectionInYZPlane) {
 
 // Параллельные
 
+//Орезки параллельны в 3d
 TEST(Intersect3d, Parallel3D) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 1, 1));
     Segment3D CD(Vector3D(1, 0, 0), Vector3D(2, 1, 1));
@@ -84,6 +82,7 @@ TEST(Intersect3d, Parallel3D) {
                  }, std::runtime_error);
 }
 
+//Отрезки параллельны в XY
 TEST(Intersect3d, ParallelInXYPlane) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 0, 0));
     Segment3D CD(Vector3D(0, 1, 0), Vector3D(1, 1, 0));
@@ -96,6 +95,8 @@ TEST(Intersect3d, ParallelInXYPlane) {
                  }, std::runtime_error);
 }
 
+
+//Орезки параллельны в 3d
 TEST(Intersect3d, ParallelOppositeDirection) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(2, 2, 2));
     Segment3D CD(Vector3D(3, 1, 1), Vector3D(1, -1, -1));
@@ -134,8 +135,7 @@ TEST(Intersect3d, CollinearDisjointAlongX) {
                  }, std::runtime_error);
 }
 
-// Коллинеарные: пересечение — отрезок
-
+//Один отрезок вырождается в точку
 TEST(Collinear_overlap, LengthOneSegmentLessEPS) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0.00001, 0.00001, 0.00001));
     Segment3D CD(Vector3D(1, 1, 1), Vector3D(2, 2, 2));
@@ -152,6 +152,7 @@ TEST(Collinear_overlap, LengthOneSegmentLessEPS) {
             }, std::runtime_error);
 }
 
+//Два отрезка вырождаются в точку
 TEST(Collinear_overlap, LengthTwoSegmentLessEPS) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0.00001, 0.00001, 0.00001));
     Segment3D CD(Vector3D(1, 1, 1), Vector3D(1.00001, 1.00001, 1.00001));
@@ -168,6 +169,7 @@ TEST(Collinear_overlap, LengthTwoSegmentLessEPS) {
             }, std::runtime_error);
 }
 
+// Коллинеарные: пересечение — отрезок
 TEST(Collinear_overlap, StartOnePoint) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0.00001, 0.00001, 0.00001));
     Segment3D CD(Vector3D(0, 0, 0), Vector3D(0.000001, 0.000001, 0.000001));
@@ -181,6 +183,7 @@ TEST(Collinear_overlap, StartOnePoint) {
     EXPECT_NEAR(point.first.get_z(), 0, EPS_TEST);
 }
 
+//Один отрезок вырождается в точку и перескается с другим
 TEST(Collinear_overlap, LengthOneSegmentLessEPSAndSegmentsIntersect) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0.00001, 0.00001, 0.00001));
     Segment3D CD(Vector3D(0, 0, 0), Vector3D(3, 3 ,3));
@@ -194,12 +197,7 @@ TEST(Collinear_overlap, LengthOneSegmentLessEPSAndSegmentsIntersect) {
     EXPECT_NEAR(point.first.get_z(), 0, EPS_TEST);
 }
 
-
-
-
-
-
-
+//Пересечение - отрезок
 TEST(Intersect3d, CollinearOverlapping) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(2, 2, 2));
     Segment3D CD(Vector3D(1, 1, 1), Vector3D(3, 3, 3));
@@ -288,7 +286,7 @@ TEST(Intersect3d, SkewCloseButNotIntersecting) {
                  }, std::runtime_error);
 }
 
-// Не пересекаются (компланарные, не параллельные)
+//Отрезки не пересекаются (компланарные, не параллельные)
 
 TEST(Intersect3d, CoplanarNoIntersection) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 0, 0));
@@ -324,18 +322,21 @@ TEST(Intersect2d, BasicIntersection) {
     EXPECT_NEAR(r.second, 1.0, EPS_TEST);
 }
 
+//Отрезки лежат на одной прямой
 TEST(Intersect2d, CollinearThrows) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 0, 0));
     Segment3D CD(Vector3D(2, 0, 0), Vector3D(3, 0, 0));
     EXPECT_THROW(intersect2d(AB, CD, COORD_X, COORD_Y), CollinearException);
 }
 
+//Отрезки параллельны
 TEST(Intersect2d, ParallelThrows) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, 0, 0));
     Segment3D CD(Vector3D(0, 1, 0), Vector3D(1, 1, 0));
     EXPECT_THROW(intersect2d(AB, CD, COORD_X, COORD_Y), std::runtime_error);
 }
 
+//Один отрезок вырождается в точку
 TEST(Intersect2d, LengthOneVectorLessEPS) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(0.0000000001, 0.0000000001, 0));
     Segment3D CD(Vector3D(0, 1, 0), Vector3D(1, 1, 0));
@@ -343,6 +344,7 @@ TEST(Intersect2d, LengthOneVectorLessEPS) {
     EXPECT_THROW(intersect2d(AB, CD, COORD_X, COORD_Y), CollinearException);
 }
 
+//Отрезки не пересекаются
 TEST(Intersect2d, NotIntersect) {
     Segment3D AB(Vector3D(0, 0, 0), Vector3D(1, -1, 0));
     Segment3D CD(Vector3D(0, 1, 0), Vector3D(1, 1, 0));

@@ -1,7 +1,7 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
-#include "Intersect.h"
+#include "сore/Intersect.h"
 
 
 TEST(Segment3D, SegmentCoord) {
