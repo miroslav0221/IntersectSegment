@@ -10,6 +10,6 @@ double Vector3D::get_y() const {
     return y;
 }
 
-double Vector3D::get_z() const{
+double Vector3D::get_z() const {
     return z;
 }

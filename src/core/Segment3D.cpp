@@ -1,30 +1,23 @@
 #include "Segment3D.h"
 
-Segment3D::Segment3D(const Vector3D &start, const Vector3D &end) : start(start), end(end) {
-    x = end.get_x() - start.get_x();
-    y = end.get_y() - start.get_y();
-    z = end.get_z() - start.get_z();
+Segment3D::Segment3D(const Vector3D &start, const Vector3D &end)
+        : start(start), end(end), segment_as_vector(end.get_x() - start.get_x(),
+                                                    end.get_y() - start.get_y(),
+                                                    end.get_z() - start.get_z()) {
 }
 
-const Vector3D& Segment3D::get_end() const {
+const Vector3D &Segment3D::get_end() const {
     return end;
 }
 
-const Vector3D& Segment3D::get_start() const {
+const Vector3D &Segment3D::get_start() const {
     return start;
 }
 
-double Segment3D::get_x() const {
-    return x;
+const Vector3D &Segment3D::get_vector() const {
+    return segment_as_vector;
 }
 
-double Segment3D::get_y() const {
-    return y;
-}
-
-double Segment3D::get_z() const {
-    return z;
-}
 
 
 

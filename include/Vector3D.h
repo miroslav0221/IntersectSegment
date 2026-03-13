@@ -1,8 +1,6 @@
 #ifndef INTERSECTSEGMENT_VECTOR3D_H
 #define INTERSECTSEGMENT_VECTOR3D_H
 
-
-
 class Vector3D {
     double x;
     double y;
@@ -18,7 +16,5 @@ public:
     double get_z() const;
 
 };
-
-
 
 #endif

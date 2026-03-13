@@ -6,11 +6,11 @@
 #include "Segment3D.h"
 #include "Vector3D.h"
 
-void print_result(const std::pair<Vector3D, Vector3D>& result) {
+void print_result(const std::pair<Vector3D, Vector3D> &result) {
     double dx = result.first.get_x() - result.second.get_x();
     double dy = result.first.get_y() - result.second.get_y();
     double dz = result.first.get_z() - result.second.get_z();
-    if (dx*dx + dy*dy + dz*dz < 1e-14) {
+    if (dx * dx + dy * dy + dz * dz < 1e-14) {
         std::cout << "Точка: (" << result.first.get_x() << ", "
                   << result.first.get_y() << ", " << result.first.get_z() << ")" << std::endl;
     } else {
@@ -23,7 +23,7 @@ void print_result(const std::pair<Vector3D, Vector3D>& result) {
 }
 
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
     // 2D тест: отрезки на одной прямой
     Vector3D A(1.0, 1.5, 0);
@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
     try {
         auto r = intersect2d(AB, CD, COORD_X, COORD_Y);
         std::cout << "Точка: (" << r.first << ", " << r.second << ")" << std::endl;
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     try {
         auto r = intersect2d(AB2, CD2, COORD_X, COORD_Y);
         std::cout << "Точка: (" << r.first << ", " << r.second << ")" << std::endl;
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 
@@ -67,21 +67,12 @@ int main(int argc, char** argv) {
 
     Segment3D AB3(A3, B3);
     Segment3D CD3(C3, D3);
-
-    std::cout << "\n=== 3D (intersect) ===" << std::endl;
-    try {
-        auto result = intersect(AB3, CD3);
-        print_result(result);
-    } catch (const std::runtime_error& e) {
-        std::cout << e.what() << std::endl;
-    }
-
     // 3D тест (intersect3d): пересечение в плоскости z=0
     std::cout << "\n=== 3D (intersect3d, z=0) ===" << std::endl;
     try {
         auto result = intersect3d(AB3, CD3);
         print_result(result);
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 
@@ -98,24 +89,24 @@ int main(int argc, char** argv) {
     try {
         auto result = intersect3d(AB5, CD5);
         print_result(result);
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 
     // 3D тест: скрещивающиеся отрезки
     Vector3D A4(0, 0, 0);
     Vector3D B4(1, 0, 0);
-    Vector3D C4(0, 1, 1);
-    Vector3D D4(0, 1, -1);
+    Vector3D C4(-2, 0, 0);
+    Vector3D D4(2, 0, 0);
 
     Segment3D AB4(A4, B4);
     Segment3D CD4(C4, D4);
 
-    std::cout << "\n=== 3D (intersect3d, скрещивающиеся) ===" << std::endl;
+    std::cout << "\n=== 3D (intersect3d, Перекрываются) ===" << std::endl;
     try {
         auto result = intersect3d(AB4, CD4);
         print_result(result);
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
     Vector3D A6(1, 1, 0);
@@ -130,7 +121,7 @@ int main(int argc, char** argv) {
     try {
         auto result = intersect3d(AB6, CD6);
         print_result(result);
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 
